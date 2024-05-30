@@ -18,6 +18,8 @@ public class TopTrumpsController {
     @Autowired
     TopTrumpsService topTrumpsService;
 
+
+//    localhost:8080/toptrumps/extension
     @PostMapping(value = "/extension")
     public ResponseEntity<Reply> newGame(){
         Reply reply = topTrumpsService.startNewGame();
@@ -25,6 +27,8 @@ public class TopTrumpsController {
         return new ResponseEntity<Reply>(reply, HttpStatus.CREATED);
     }
 
+
+//    localhost:8080/toptrumps/mvp
     @PostMapping(value = "/mvp")
     public ResponseEntity<Reply> newGame(@RequestBody ArrayList<Card> cards){
         Reply reply = topTrumpsService.checkWinnerMVP(cards);
