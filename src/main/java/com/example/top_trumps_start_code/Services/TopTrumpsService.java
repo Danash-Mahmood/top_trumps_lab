@@ -35,9 +35,6 @@ public class TopTrumpsService {
                 temCard = new Card(rank,suit);
                 this.cardList.add(temCard);
 
-
-
-
             }
         }
     }
@@ -50,44 +47,54 @@ public class TopTrumpsService {
         Random randomiser2 = new Random();
         cardPlayer2 =  cardList.get(randomiser2.nextInt(cardList.size()));
         cardList.remove(cardPlayer2);
-
-
-
     }
 
     public Reply checkWinner(Card cardPlayer1,Card cardPlayer2){
         Reply reply;
         if(cardPlayer1.getCardValue() > cardPlayer2.getCardValue()){
 
-            reply = new Reply(String.format("%s of %s wins!",cardPlayer1.getRank(),cardPlayer1.getSuit()));
-
-
-
+            reply = new Reply(String.format("%s of %s wins, beating %s of %s",
+                    cardPlayer1.getRank(),cardPlayer1.getSuit(),
+                    cardPlayer2.getRank(),cardPlayer2.getSuit()));
 
         }
 
 
         if(cardPlayer1.getCardValue() < cardPlayer2.getCardValue()){
-            reply = new Reply(String.format("%s of %s wins!",cardPlayer2.getRank(),cardPlayer2.getSuit()));
+            reply = new Reply(String.format("%s of %s wins!, beating %s of %s",
+                    cardPlayer2.getRank(),cardPlayer2.getSuit(),
+                    cardPlayer1.getRank(),cardPlayer1.getSuit()));
 
         }
 
         else{
 
-            reply =  new Reply("Draw!");
-
-
+            reply =  new Reply(String.format("Draw! Both players drawn %s's", cardPlayer1.getRank()));
 
         }
 
         return reply;
 
+    }
 
-
-
-
-
-
+    public Reply checkWinnerMVP(ArrayList<Card> cards){
+        Reply reply;
+        if (cards.get(0).getCardValue() > cards.get(1).getCardValue()){
+            reply = new Reply(String.format("%s of %s beats %s of %s",
+                    cards.get(0).getRank(),cards.get(0).getSuit(),
+                    cards.get(1).getRank(),cards.get(1).getSuit()));
+        }
+        if (cards.get(0).getCardValue() < cards.get(1).getCardValue()){
+            reply = new Reply(String.format("%s of %s beats %s of %s",
+                    cards.get(1).getRank(),cards.get(1).getSuit(),
+                    cards.get(0).getRank(),cards.get(0).getSuit()));
+        }
+        else {
+            reply = new Reply(String.format("%s of %s draws with %s of %s",
+                    cards.get(1).getRank(),cards.get(1).getSuit(),
+                    cards.get(0).getRank(),cards.get(0).getSuit()));
+        }
+        return reply;
     }
 
 
@@ -102,20 +109,7 @@ public class TopTrumpsService {
 
         return this.checkWinner(cardPlayer1,cardPlayer2);
 
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
 
     public Card getCardPlayer1() {
